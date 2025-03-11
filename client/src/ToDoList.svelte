@@ -28,7 +28,7 @@
 
     onMount(function () {
         console.log(id);
-        socket = new WebSocket(`ws://localhost:8080/ws?id=${id}`);
+        socket = new WebSocket(`ws://localhost:8787/ws?id=${id}`);
 
         socket.onopen = function () {
             console.log("Socket connected");
