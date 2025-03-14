@@ -1,11 +1,18 @@
 import { Hono } from "hono";
 import { upgradeWebSocket } from "hono/cloudflare-workers";
+export { WebhookReceiver } from "./receiver";
 
 // NOTE: In Cloudflare Workers, global variables do not persist between requests.
 // This example is for prototyping on a single instance.
 const connections = new Set();
 
-const app = new Hono();
+const app = new Hono<{ Bindings: CloudflareBindings }>();
+
+app.get("/durableObjectTest", async (c) => {
+  const id = c.env.WebhookReceiver.idFromName("default");
+  const stub = c.env.WebhookReceiver.get(id);
+  return stub.fetch(c.req.raw);
+});
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");
