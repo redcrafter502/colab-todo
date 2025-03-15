@@ -6,5 +6,13 @@ import { createClient } from "jstack";
  * @see https://jstack.app/docs/backend/api-client
  */
 export const client = createClient<AppRouter>({
-  baseUrl: "http://localhost:8080/api",
+  baseUrl: `${getBaseUrl()}/api`,
 });
+
+function getBaseUrl() {
+  if (process.env.NODE_ENV === "production") {
+    return "https://colab-todo.redcrafter502.workers.dev";
+  }
+
+  return "http://localhost:8080";
+}
