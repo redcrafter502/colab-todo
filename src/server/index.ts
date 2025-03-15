@@ -17,6 +17,7 @@ const api = j
       origin: "https://colab-todo.vercel.app",
       allowHeaders: ["x-is-superjson"],
       exposeHeaders: ["x-is-superjson"],
+      credentials: true,
     }),
   )
   .onError(j.defaults.errorHandler);
