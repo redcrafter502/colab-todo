@@ -1,3 +1,5 @@
+import { TodoList } from "./_components/todo-list";
+
 export default async function ToDoListPage({
   params,
 }: {
@@ -5,5 +7,10 @@ export default async function ToDoListPage({
 }) {
   const { id } = await params;
 
-  return <div>Todo List with id: {id}</div>;
+  return (
+    <div>
+      <span>Todo List with id: {id}</span>
+      <TodoList id={id} />
+    </div>
+  );
 }

@@ -1,5 +1,6 @@
 import { j } from "./jstack";
 import { postRouter } from "./routers/post-router";
+import { todoListRouter } from "./routers/todo-list-router";
 import { cors } from "hono/cors";
 
 /**
@@ -28,6 +29,7 @@ const api = j
  */
 const appRouter = j.mergeRouters(api, {
   post: postRouter,
+  todoList: todoListRouter,
 });
 
 export type AppRouter = typeof appRouter;
