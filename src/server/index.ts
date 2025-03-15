@@ -15,8 +15,8 @@ const api = j
   .use(
     cors({
       origin: "https://colab-todo.vercel.app",
-      allowHeaders: ["x-is-superjson"],
-      exposeHeaders: ["x-is-superjson"],
+      allowHeaders: ["x-is-superjson", "content-type"],
+      exposeHeaders: ["x-is-superjson", "content-type"],
       credentials: true,
     }),
   )
