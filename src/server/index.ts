@@ -1,5 +1,6 @@
-import { j } from "./jstack"
-import { postRouter } from "./routers/post-router"
+import { j } from "./jstack";
+import { postRouter } from "./routers/post-router";
+import { cors } from "hono/cors";
 
 /**
  * This is your base API.
@@ -10,8 +11,15 @@ import { postRouter } from "./routers/post-router"
 const api = j
   .router()
   .basePath("/api")
-  .use(j.defaults.cors)
-  .onError(j.defaults.errorHandler)
+  //.use(j.defaults.cors)
+  .use(
+    cors({
+      origin: "https://colab-todo.vercel.app",
+      allowHeaders: ["x-is-superjson"],
+      exposeHeaders: ["x-is-superjson"],
+    }),
+  )
+  .onError(j.defaults.errorHandler);
 
 /**
  * This is the main router for your server.
@@ -19,8 +27,8 @@ const api = j
  */
 const appRouter = j.mergeRouters(api, {
   post: postRouter,
-})
+});
 
-export type AppRouter = typeof appRouter
+export type AppRouter = typeof appRouter;
 
-export default appRouter
+export default appRouter;
