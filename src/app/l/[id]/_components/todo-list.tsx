@@ -1,8 +1,7 @@
 "use client";
 import { client } from "@/lib/client";
-import { useEffect } from "hono/jsx";
 import { useWebSocket } from "jstack/client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const socket = client.todoList.todoList.$ws();
 
@@ -13,9 +12,13 @@ socket.on("onConnect", () => {
 export function TodoList({ id }: { id: string }) {
   const [title, setTitle] = useState("");
 
+  useEffect(() => {
+    socket.emit("joinList", { listId: id });
+  }, []);
+
   useWebSocket(socket, {
     titleChange: ({ title: newTitle }) => {
-      console.log("title ws", title);
+      console.log("title ws", newTitle);
       setTitle(newTitle);
     },
   });
