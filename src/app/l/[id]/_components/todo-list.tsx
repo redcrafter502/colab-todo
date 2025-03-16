@@ -23,23 +23,25 @@ export function TodoList({ id }: { id: string }) {
     },
   });
 
-  function changeTitle(data: FormData) {
-    const title = data.get("title");
-    if (!title || typeof title !== "string") return;
+  function changeTitle(newTitle: string) {
     socket.emit("titleChange", {
       listId: id,
-      title,
+      title: newTitle,
     });
   }
 
   return (
     <div>
       <h1>Todo List</h1>
-      <h2>{title}</h2>
-      <form action={changeTitle}>
-        <input type="text" name="title" />
-        <button type="submit">Change title</button>
-      </form>
+      <div>
+        <input
+          type="text"
+          name="title"
+          className="border-5"
+          value={title}
+          onChange={(e) => changeTitle(e.target.value)}
+        />
+      </div>
     </div>
   );
 }
